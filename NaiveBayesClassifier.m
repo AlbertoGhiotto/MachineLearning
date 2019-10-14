@@ -1,13 +1,17 @@
+clear; clc;
 %% Load dataset and divide in train and test set and class labels
-dataset = load('weather.data');       %Load the dataset
-
+preDataset = load('weather.data');       %Load the dataset
 [data, cols] = size(dataset);
+
+dataset = preDataset(randperm(size(preDataset, 1)), :)
+
+
 features = cols -1 ; % take out the class labels from the features
 n = 8;
 %Divide dataset in:
 trainSet = dataset(1:n, 1:features+1);          %train set
 testSet = dataset(1:data, 1:features);        %test set
-classLabel = dataset(1:data,features);        %class labels (ground truth)
+classLabel = dataset(1:data,features+1);        %class labels (ground truth)
 
 %% Check that the number of columns of the second matrix equals 
 %  the number d of columns of the first matrix – 1
@@ -18,7 +22,8 @@ classLabel = dataset(1:data,features);        %class labels (ground truth)
 if( (trSetCols -1) ~= testSetCols)
     disp("Error! The train and test set are not correctly dimensioned");
 end
-%% Check that no entry in any of the two data sets is <1
+%% Check that no entry in any of the two data sets is <1  (<0 since we have binary attributes with 0/1 values)
+
 for row = 1:trSetRows
     for col = 1:trSetCols
         if (trainSet(row,col) < 0)
@@ -40,14 +45,38 @@ end
 
 % First I need to evaluate the class vector, count how many classes 
 % there are and compute their probability
+% classLabel = [0;1;2;3;4;0;0;1;1;0;2;0;4;3];  %tested with different
+% classLabel, works
 
-[n_classes, t] = size(classLabel);
+classes = unique(classLabel);        % Different classes
+[no_classes, t] = size(classes);     % #of different classes
 
-classes = classLabel(1,1);  % Initially set classes as only the first element of the class vector
-for row = 1:n_classes
-   if( classLabel(row,1) ~= classes)
-        classes = [classes; classLabel(row,1)];  %append each new element to the class vector
-   end
+% Create matrix of classes and occurencies
+classesOccur = horzcat(classes, zeros(no_classes,1));
+[data, t] = size(classLabel);
+
+% Count occurencies of each different classes (-> same as probability)
+for i = 1:no_classes
+    for k = 1:data
+        if (classLabel(k) == classes(i))
+            classesOccur(i,2) = classesOccur(i,2) +1;
+        end
+    end
 end
+
+% Now compute all the single probabilities from the train set
+
+for i= 1:features
+    attributes = unique(trainSet(:,i));       % Count the attributes for each column of the trainSet
+    [no_attributes, t] = size(attributes);    % #of different attributes for each column
+    
+    for j = 1:data
+        if(trainSet(j, i) ==
+            
+        end
+    end
+    
+end
+
 
 
