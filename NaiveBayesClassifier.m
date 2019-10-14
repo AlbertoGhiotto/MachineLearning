@@ -1,13 +1,14 @@
 clear; clc;
 %% Load dataset and divide in train and test set and class labels
 preDataset = load('weather.data');       %Load the dataset
+
+%randomize dataset entries for consistency in division between train and
+%test set
+dataset = preDataset(randperm(size(preDataset, 1)), :); 
+
 [data, cols] = size(dataset);
-
-dataset = preDataset(randperm(size(preDataset, 1)), :)
-
-
 features = cols -1 ; % take out the class labels from the features
-n = 8;
+n = 14;
 %Divide dataset in:
 trainSet = dataset(1:n, 1:features+1);          %train set
 testSet = dataset(1:data, 1:features);        %test set
@@ -65,18 +66,27 @@ for i = 1:no_classes
 end
 
 % Now compute all the single probabilities from the train set
+confusionMatrix = zeros(3,3,4);
 
-for i= 1:features
-    attributes = unique(trainSet(:,i));       % Count the attributes for each column of the trainSet
+for f= 1:features
+    attributes = unique(trainSet(:,f));       % Count the attributes for each column of the trainSet
     [no_attributes, t] = size(attributes);    % #of different attributes for each column
     
-    for j = 1:data
-        if(trainSet(j, i) ==
-            
+    for j = 1:n  %for each single row of the single column of the train set
+        for k = 1:no_attributes  %for each different type of attribute
+            for c = 1:no_classes   %for each different classes
+                if((trainSet(j, f) == attributes(k)) && (trainSet(j,features +1 ) == classes(c)))
+                    % We have an occurence of attributes(k) with the
+                    % relative target class with value classes(c) ->
+                    % increment occurence
+                    confusionMatrix(k,c,f) = confusionMatrix(k,c,f) + 1 ; 
+                end
+            end
         end
     end
-    
 end
+
+
 
 
 
