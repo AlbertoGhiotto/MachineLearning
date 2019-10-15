@@ -1,4 +1,4 @@
-function confusionMatrix = NaiveBayesClassifier(trainSet, testSet, groundTruth)
+function [prediction,errorRate] = NaiveBayesClassifier(trainSet, testSet, groundTruth)
 
 [t, features] = size(testSet);
 [measurements, column]= size(trainSet);
@@ -11,11 +11,11 @@ function confusionMatrix = NaiveBayesClassifier(trainSet, testSet, groundTruth)
 if( (trSetCols -1) ~= testSetCols)
     disp("Error! The train and test set are not correctly dimensioned");
 end
-%% Check that no entry in any of the two data sets is <1  (<0 since we have binary attributes with 0/1 values)
+%% Check that no entry in any of the two data sets is <1  
 
 for row = 1:trSetRows
     for col = 1:trSetCols
-        if (trainSet(row,col) < 0)
+        if (trainSet(row,col) < 1)
             disp(['Error! The values in the train set in position (', num2str(row),',',num2str(col),') are inconsistent']);
         end
     end
@@ -23,7 +23,7 @@ end
 
 for row = 1:testSetRows
     for col = 1:testSetCols
-        if (testSet(row,col) < 0)
+        if (testSet(row,col) < 1)
             disp(['Error! The values in the test set in position (', num2str(row),',',num2str(col),') are inconsistent']);
         end
     end
@@ -80,19 +80,47 @@ end
 
 results = zeros(testSetRows, no_classes);
 classes_prob = zeros(no_classes);
+attributes_prob = 1;
 
 for row = 1:testSetRows
     for c = 1:no_classes
         classes_prob(c) = classesOccur(c,2)/ measurements;   % compute single class probability
         %compute single probability, take them from confusion matrix
-        
-        attributes_prob =  %probably need another for loop to iterate along the tridim matrix
-        
-        results(row,c) = classes_prob(c) * 
+        for f = 1:features        %iterate along the tridimensional matrix
+            attributes_prob = attributes_prob * confusionMatrix(testSet(row,f),c,f) /  classesOccur(c,2);
+            %use the actual attribute to index the matrix since they're all numerical and ordered
+        end
+        results(row,c) = classes_prob(c) * attributes_prob;   % probabilities each classes
+        attributes_prob = 1;
     end
-    
-    
 end
+
+% Now normalize the values in [0,1] probability
+
+finalProb = zeros(testSetRows,no_classes);
+for row = 1:testSetRows
+    for c = 1:no_classes
+        finalProb(row,c) = results(row,c) / sum(results(row,:));
+    end
+end
+%  finalProb
+% Now compute error rate by expoliting the ground truth
+t = 0; % temporary variable
+prediction = zeros(testSetRows, 1);
+errorRate = 0;
+for row = 1:testSetRows
+   
+    [t, prediction(row,1)] = max(finalProb(row,:)); %take the index of the max value of vector = the prediction
+    
+    if (prediction(row,1) == groundTruth(row))
+        % the prediction is correct
+    else
+        errorRate = errorRate +1 ;% the prediction is incorrect
+    end
+end
+
+% prediction
+errorRate = errorRate / testSetRows * 100;
 
 end
 
