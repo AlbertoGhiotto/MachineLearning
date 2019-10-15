@@ -1,19 +1,7 @@
-clear; clc;
-%% Load dataset and divide in train and test set and class labels
-preDataset = load('weather.data');       %Load the dataset
+function confusionMatrix = NaiveBayesClassifier(trainSet, testSet, groundTruth)
 
-%randomize dataset entries for consistency in division between train and
-%test set
-dataset = preDataset(randperm(size(preDataset, 1)), :); 
-
-[data, cols] = size(dataset);
-features = cols -1 ; % take out the class labels from the features
-n = 14;
-%Divide dataset in:
-trainSet = dataset(1:n, 1:features+1);          %train set
-testSet = dataset(1:data, 1:features);        %test set
-classLabel = dataset(1:data,features+1);        %class labels (ground truth)
-
+[t, features] = size(testSet);
+[measurements, column]= size(trainSet);
 %% Check that the number of columns of the second matrix equals 
 %  the number d of columns of the first matrix – 1
 
@@ -48,7 +36,7 @@ end
 % there are and compute their probability
 % classLabel = [0;1;2;3;4;0;0;1;1;0;2;0;4;3];  %tested with different
 % classLabel, works
-
+classLabel = trainSet(:,column);
 classes = unique(classLabel);        % Different classes
 [no_classes, t] = size(classes);     % #of different classes
 
@@ -66,13 +54,14 @@ for i = 1:no_classes
 end
 
 % Now compute all the single probabilities from the train set
-confusionMatrix = zeros(3,3,4);
+max_no_attributes= max(max(testSet)); % computer max number of attributes among all the columns          
+confusionMatrix = zeros(max_no_attributes,no_classes,features);
 
 for f= 1:features
     attributes = unique(trainSet(:,f));       % Count the attributes for each column of the trainSet
     [no_attributes, t] = size(attributes);    % #of different attributes for each column
     
-    for j = 1:n  %for each single row of the single column of the train set
+    for j = 1:measurements  %for each single row of the single column of the train set
         for k = 1:no_attributes  %for each different type of attribute
             for c = 1:no_classes   %for each different classes
                 if((trainSet(j, f) == attributes(k)) && (trainSet(j,features +1 ) == classes(c)))
@@ -87,6 +76,23 @@ for f= 1:features
 end
 
 
+%% Now evaluate the test set
 
+results = zeros(testSetRows, no_classes);
+classes_prob = zeros(no_classes);
 
+for row = 1:testSetRows
+    for c = 1:no_classes
+        classes_prob(c) = classesOccur(c,2)/ measurements;   % compute single class probability
+        %compute single probability, take them from confusion matrix
+        
+        attributes_prob =  %probably need another for loop to iterate along the tridim matrix
+        
+        results(row,c) = classes_prob(c) * 
+    end
+    
+    
+end
+
+end
 
