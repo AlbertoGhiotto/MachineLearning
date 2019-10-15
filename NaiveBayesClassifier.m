@@ -1,5 +1,9 @@
 function [prediction,errorRate] = NaiveBayesClassifier(trainSet, testSet, groundTruth)
 
+if nargin<3
+    error('Not enough input arguments')
+end
+
 [t, features] = size(testSet);
 [measurements, column]= size(trainSet);
 %% Check that the number of columns of the second matrix equals 
@@ -7,6 +11,7 @@ function [prediction,errorRate] = NaiveBayesClassifier(trainSet, testSet, ground
 
 [trSetRows, trSetCols] = size(trainSet);
 [testSetRows, testSetCols] = size(testSet);
+%-------------Rename dimensional variable to suit their content
 
 if( (trSetCols -1) ~= testSetCols)
     disp("Error! The train and test set are not correctly dimensioned");
@@ -57,12 +62,14 @@ end
 max_no_attributes= max(max(testSet)); % computer max number of attributes among all the columns          
 confusionMatrix = zeros(max_no_attributes,no_classes,features);
 
+no_attributes = ones(1,features);
+
 for f= 1:features
-    attributes = unique(trainSet(:,f));       % Count the attributes for each column of the trainSet
-    [no_attributes, t] = size(attributes);    % #of different attributes for each column
+    attributes = unique(trainSet(:,f));       % List of the attributes for each column of the trainSet
+    [no_attributes(f), t] = size(attributes);    % #of different attributes for each column
     
     for j = 1:measurements  %for each single row of the single column of the train set
-        for k = 1:no_attributes  %for each different type of attribute
+        for k = 1:no_attributes(f)  %for each different type of attribute
             for c = 1:no_classes   %for each different classes
                 if((trainSet(j, f) == attributes(k)) && (trainSet(j,features +1 ) == classes(c)))
                     % We have an occurence of attributes(k) with the
@@ -76,7 +83,7 @@ for f= 1:features
 end
 
 
-%% Now evaluate the test set
+%% Evaluation of the test set
 
 aPostProb = zeros(testSetRows, no_classes);
 aPrioriProb = zeros(no_classes);
@@ -85,7 +92,7 @@ likelihood = 1;
 for row = 1:testSetRows
     for c = 1:no_classes
         aPrioriProb(c) = classesOccur(c,2)/ measurements;   % compute single class probability
-        %compute single probability, take them from confusion matrix
+        %compute likelihood, use values of single probability from confusion matrix
         for f = 1:features        %iterate along the tridimensional matrix
             likelihood = likelihood * confusionMatrix(testSet(row,f),c,f) /  classesOccur(c,2);
             %use the actual attribute to index the matrix since they're all numerical and ordered
@@ -95,7 +102,7 @@ for row = 1:testSetRows
     end
 end
 
-% Now normalize the values in [0,1] probability
+% Normalization of the values of posteriori probability between [0,1] 
 
 normalizedProb = zeros(testSetRows,no_classes);
 for row = 1:testSetRows
@@ -104,6 +111,7 @@ for row = 1:testSetRows
     end
 end
 %  finalProb
+
 % Now compute error rate by expoliting the ground truth
 t = 0; % temporary variable
 prediction = zeros(testSetRows, 1);
@@ -122,5 +130,9 @@ end
 prediction
 errorRate = errorRate / testSetRows * 100
 
+
+
 end
+
+
 

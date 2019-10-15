@@ -15,3 +15,5 @@ testSet = dataset(n+1:data, 1:features);        %test set
 groundTruth = dataset(n+1:data,features+1);        %class labels (ground truth)
 
 [prediction,errorRate] = NaiveBayesClassifier(trainSet, testSet, groundTruth);
+
+[prediction,errorRate] = NaiveBayesClassifierWithLaplaceSmoothing(trainSet, testSet, groundTruth);
