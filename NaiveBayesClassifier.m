@@ -82,11 +82,12 @@ for f= 1:features
     end
 end
 
+checkOccurr = sum(confusionMatrix(:,:,:));
 
 %% Evaluation of the test set
 
 aPostProb = zeros(testSetRows, no_classes);
-aPrioriProb = zeros(no_classes);
+aPrioriProb = zeros(no_classes,1);
 likelihood = 1;
 
 for row = 1:testSetRows
@@ -94,14 +95,16 @@ for row = 1:testSetRows
         aPrioriProb(c) = classesOccur(c,2)/ measurements;   % compute single class probability
         %compute likelihood, use values of single probability from confusion matrix
         for f = 1:features        %iterate along the tridimensional matrix
-            likelihood = likelihood * confusionMatrix(testSet(row,f),c,f) /  classesOccur(c,2);
-            %use the actual attribute to index the matrix since they're all numerical and ordered
+            if confusionMatrix(testSet(row,f),c,f) ~= 0
+                likelihood = likelihood * confusionMatrix(testSet(row,f),c,f) /  classesOccur(c,2);
+                %use the actual attribute to index the matrix since they're all numerical and ordered
+            end
         end
         aPostProb(row,c) = aPrioriProb(c) * likelihood;   % probabilities each classes
         likelihood = 1;
     end
 end
-
+aPostProb
 % Normalization of the values of posteriori probability between [0,1] 
 
 normalizedProb = zeros(testSetRows,no_classes);
@@ -110,24 +113,24 @@ for row = 1:testSetRows
         normalizedProb(row,c) = aPostProb(row,c) / sum(aPostProb(row,:));
     end
 end
-%  finalProb
+ normalizedProb
 
 % Now compute error rate by expoliting the ground truth
-t = 0; % temporary variable
-prediction = zeros(testSetRows, 1);
+
+prediction = zeros(testSetRows,1);
 errorRate = 0;
 for row = 1:testSetRows
    
-    [t, prediction(row,1)] = max(normalizedProb(row,:)); %take the index of the max value of vector = the prediction
+    [~, prediction(row)] = max(normalizedProb(row,:)); %take the index of the max value of vector = the prediction
     
-    if (prediction(row,1) == groundTruth(row))
+    if (prediction(row) == groundTruth(row))
         % the prediction is correct
     else
         errorRate = errorRate +1 ;% the prediction is incorrect
     end
 end
 
-prediction
+% prediction
 errorRate = errorRate / testSetRows * 100
 
 
