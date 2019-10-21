@@ -104,7 +104,7 @@ for row = 1:testSetRows
         likelihood = 1;
     end
 end
-aPostProb
+% aPostProb
 % Normalization of the values of posteriori probability between [0,1] 
 
 normalizedProb = zeros(testSetRows,no_classes);
@@ -113,27 +113,18 @@ for row = 1:testSetRows
         normalizedProb(row,c) = aPostProb(row,c) / sum(aPostProb(row,:));
     end
 end
- normalizedProb
+%  normalizedProb
 
 % Now compute error rate by expoliting the ground truth
 
 prediction = zeros(testSetRows,1);
 errorRate = 0;
 for row = 1:testSetRows
-   
     [~, prediction(row)] = max(normalizedProb(row,:)); %take the index of the max value of vector = the prediction
-    
-    if (prediction(row) == groundTruth(row))
-        % the prediction is correct
-    else
-        errorRate = errorRate +1 ;% the prediction is incorrect
-    end
 end
 
 % prediction
-errorRate = errorRate / testSetRows * 100
-
-
+errorRate = sum(prediction ~= groundTruth) / testSetRows * 100
 
 end
 
