@@ -18,7 +18,13 @@ stDataset = load("turkish-se-SP500vsMSCI.csv");
 % select data from different ends of the data set (beginning and end) 
 % since they are in temporal order
 
-graphicCompare(stDataset);
+% graphicCompare(stDataset);
+
+
+% One-dimensional problem with intercept on the Motor Trends car data,
+% using columns mpg and weight
+
+linearRegressionWithOffset(carDataset, 1);
 
 
 
