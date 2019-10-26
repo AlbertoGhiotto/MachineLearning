@@ -1,4 +1,4 @@
-function slope = linearRegression(dataSet)
+function slope = linearRegression(dataSet, doPlot)
 
 % One-dimensional problem without intercept
 
@@ -13,11 +13,13 @@ for i= 1:dimension
 end
 
 slope = num / den ;
- 
-figure;
-plot (dataSet(:,1), dataSet(:,2), 'rx');        % plot points of dataset
-hold on;
-plot (dataSet(:,1), slope * dataSet(:,1), 'b-' , 'Linewidth', 2);    % plot line with computed slope y = slope * x
-title('One-dimensional problem without intercept on the Turkish stock exchange data');
+
+if doPlot
+    figure;
+    plot (dataSet(:,1), dataSet(:,2), 'rx');        % plot points of dataset
+    hold on;
+    plot (dataSet(:,1), slope * dataSet(:,1), 'b-' , 'Linewidth', 2);    % plot line with computed slope y = slope * x
+    title('One-dimensional problem without intercept on the Turkish stock exchange data');
+end
 
 end
