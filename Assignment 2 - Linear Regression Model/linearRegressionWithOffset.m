@@ -1,4 +1,4 @@
-function slope = linearRegressionWithOffset(dataSet, doPlot)
+function linearRegressionWithOffset(dataSet)
 
 % One-dimensional problem with intercept
 
@@ -27,17 +27,15 @@ w1 = num / den ;  % slope (gain)
 
 w0 = t_bar - w1 * x_bar ;   % intercept / offset (bias)
 
-%  _____________________________Da modificare colonne per indicare mpg (3)
-%  e weights (5)
 
-if doPlot
-    figure;
-    plot (dataSet(:,1), dataSet(:,4), 'rx');        % plot points of dataset
-    hold on;
-    % plot line with computed slope y = w1 * x + w0
-    plot (dataSet(:,1), w1 * dataSet(:,1) + w0, 'b-' , 'Linewidth', 2);
-    %maybe put title in script?
-    title('One-dimensional problem with intercept on the on the Motor Trends car data');
-end
+
+figure;
+plot (dataSet(:,1), dataSet(:,4), 'rx');        % plot points of dataset
+hold on;
+% plot line with computed slope y = w1 * x + w0
+plot (dataSet(:,1), w1 * dataSet(:,1) + w0, 'b-' , 'Linewidth', 2);
+%maybe put title in script?
+title('One-dimensional problem with intercept on the on the Motor Trends car data');
+
 
 end
