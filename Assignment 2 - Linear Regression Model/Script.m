@@ -82,3 +82,23 @@ end
  disp(['The one dimensional mse, averaged over #',num2str(iteration ),' iterations with a randomized dataset of 70% of the samples is:',num2str(mse_sev)]);
  disp(['The one dimensional mse, averaged over #',num2str(iteration ),' iterations with a randomized dataset of 100% of the samples is:',num2str(mse_tot)]);
 
+% Compute MSE for Multi-dimensional problem on the complete MTcars data
+mse_ten = 0 ; mse_sev = 0; mse_tot = 0;
+
+iteration = 100000;
+for i = 1:iteration
+    randomCarDataset = carDataset(randperm(dimension), :);
+    mse_ten = mse_ten + oneDimOffsetMSE(randomCarDataset(1:3,:),0);
+    mse_sev = mse_sev + oneDimOffsetMSE(randomCarDataset(1:22,:),0);
+    mse_tot = mse_tot + oneDimOffsetMSE(randomCarDataset(1:end,:),0);
+end
+ 
+ mse_ten = mse_ten / iteration;
+ mse_sev = mse_sev / iteration;
+ mse_tot = mse_tot / iteration;
+
+ disp('MSE for Multi-dimensional problem on the complete MTcars data');
+ disp(['The multi dimensional mse, averaged over #',num2str(iteration ),' iterations with a randomized dataset of 10% of the samples is:',num2str(mse_ten)]);
+ disp(['The multi dimensional mse, averaged over #',num2str(iteration ),' iterations with a randomized dataset of 70% of the samples is:',num2str(mse_sev)]);
+ disp(['The multi dimensional mse, averaged over #',num2str(iteration ),' iterations with a randomized dataset of 100% of the samples is:',num2str(mse_tot)]);
+

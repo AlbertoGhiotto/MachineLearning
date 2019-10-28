@@ -1,4 +1,4 @@
-function multiDimensionalLinearRegression(dataSet)
+function prediction = multiDimensionalLinearRegression(dataSet)
 % Multidimensional problem with 3 observation vector (column 2,3,4) 
 % and 1 target vector (mpg in the case of motor trend data, column 1)
 
@@ -20,11 +20,11 @@ w = pinv(X' * X) * X' * t;
 % plot line with computed slope y = X * w
 % plot (X, X * w  , 'b-' , 'Linewidth', 2);
 
-
+prediction = X*w ;
 f = figure;
-data = [X t X*w ];
+data = [X t prediction];
 colNames = {'disp', 'hp', 'weight', 'dataset mpg', 'Predicted mpg' };
-t = uitable(f, 'Data', data, 'ColumnName', colNames, 'Position', [0 0 470 420]);
+uitable(f, 'Data', data, 'ColumnName', colNames, 'Position', [0 0 470 420]);
 
 
 % title('Multi dimensional problem on the on the Motor Trends car data');
