@@ -13,13 +13,21 @@ t = dataSet(:,1);
 % Compute slope
 w = pinv(X' * X) * X' * t;
 
-figure;
-plot (X, t, 'rx');        % plot points of dataset
-hold on;
+% Plot the table representing the estimate of the target
+% figure;
+% plot (X, t, 'rx');        % plot points of dataset
+% hold on;
 % plot line with computed slope y = X * w
-plot (X, X * w  , 'b-' , 'Linewidth', 2);
+% plot (X, X * w  , 'b-' , 'Linewidth', 2);
 
-title('Multi dimensional problem on the on the Motor Trends car data');
+
+f = figure;
+data = [X t X*w ];
+colNames = {'disp', 'hp', 'weight', 'dataset mpg', 'Predicted mpg' };
+t = uitable(f, 'Data', data, 'ColumnName', colNames, 'Position', [0 0 470 420]);
+
+
+% title('Multi dimensional problem on the on the Motor Trends car data');
 
 
 end
