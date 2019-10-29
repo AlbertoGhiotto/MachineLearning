@@ -5,11 +5,19 @@ function J_mse = multiDimMSE(dataSet, doPlot)
 y = multiDimensionalLinearRegression(dataSet, 0);
 J_mse = 0 ;
 
-for i = 1: dimension
-    J_mse = J_mse + (dataSet(i, 4) - y(i) ) ^2 ;  % Target is column 4 ->mpg
-end
 
-J_mse = J_mse / dimension;
+% for i = 1: dimension
+%     J_mse = J_mse + (dataSet(i, 1) - y(i) ) ^2 ;  % Target is column 1 ->mpg
+% end
+% 
+% J_mse = J_mse / dimension;
+
+
+t = dataSet(:, 1);
+J_mse = immse(t, y);
+
+
+% J_mse =  * norm( t - y )^2 /dimension;
 
 if (doPlot)
     disp(['The one dimensional mse with a dataset of #', num2str(dimension),' samples is:',num2str(J_mse)]);
