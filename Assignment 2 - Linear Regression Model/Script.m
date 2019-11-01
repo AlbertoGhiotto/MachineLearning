@@ -25,12 +25,10 @@ linearRegression(stDataset,1);
 
 graphicCompare(stDataset);
 
-
 % One-dimensional problem with intercept on the Motor Trends car data,
 % predict mpg with weight
 
 linearRegressionWithOffset(carDataset, 1);
-
 
 %  Multi-dimensional problem on the complete MTcars data, using all four columns
 % (predict mpg with the other three columns)

@@ -9,9 +9,8 @@ dim_subset = floor(dimension / no_subset);  % Floor the dimension in order to av
 figure;
 sgtitle(['Comparison of ', int2str(no_subset ) ,' subset of the dataset']);
 for i = 1:no_subset
-
     dataSet = randomDataset((dim_subset*i+1-dim_subset) : dim_subset*i,:);
-
+    
     slope = linearRegression(dataSet,0);
     subplot(3,3,i);
     
@@ -22,7 +21,5 @@ for i = 1:no_subset
     title(['Subset #',num2str(i),' - Slope =', num2str(slope) ]);
     
 end
-
-
 
 end

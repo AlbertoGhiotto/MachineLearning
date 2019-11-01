@@ -34,7 +34,7 @@ if(doPlot)
     figure;
     plot (dataSet(:,4), dataSet(:,1), 'rx');        % plot points of dataset
     hold on;
-    % plot line with computed slope 
+    % plot line with computed slope
     plot (dataSet(:,4), y , 'b-' , 'Linewidth', 2);
     %maybe put title in script?
     title('One-dimensional problem with intercept on the on the Motor Trends car data');
