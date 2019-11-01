@@ -27,7 +27,7 @@ if doPlot
     f = figure;
     data = [X t prediction];
     colNames = {'disp', 'hp', 'weight', 'dataset mpg', 'Predicted mpg' };
-    uitable(f, 'Data', data, 'ColumnName', colNames, 'Position', [0 0 470 420]);
+    uitable(f, 'Data', data, 'ColumnName', colNames, 'Position', [0 0 440 420]);
 end
 
 % title('Multi dimensional problem on the on the Motor Trends car data');

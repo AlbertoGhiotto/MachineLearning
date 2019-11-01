@@ -13,10 +13,17 @@ for i = 1:iteration
     mse_ninety = mse_ninety + relativeMSE(randomDataset(1:ninety,:),0);
     mse_tot = mse_tot + relativeMSE(randomDataset(1:end,:),0);
 end
- 
- mse_ten = mse_ten / iteration;
- mse_ninety = mse_ninety / iteration;
- mse_tot = mse_tot / iteration;
+
+mse_ten = mse_ten / iteration;
+mse_ninety = mse_ninety / iteration;
+mse_tot = mse_tot / iteration;
+
+col_1 = [ (ten/dimension)*100 ; (ninety/dimension)*100 ; 100];
+col_2 = [ mse_ten ; mse_ninety ; mse_tot ];
+f = figure;
+data = [ col_1 col_2 ];
+colNames = {'Percentage', 'MSE'};
+uitable(f, 'Data', data, 'ColumnName', colNames, 'Position', [5 340 184 80]);
 
 
 end
