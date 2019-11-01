@@ -9,7 +9,7 @@ den = 0;
 
 for i= 1:dimension
     num = num +  dataSet(i,1) * dataSet(i,2);
-    den = den + (dataSet(i,1))^2;
+    den = den + (dataSet(i,1))^2; 
 end
 
 slope = num / den ;

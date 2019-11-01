@@ -10,9 +10,7 @@ for i = 1: dimension
 end
 
 J_mse = J_mse / dimension;
-if isnan(J_mse)
-        nanna = nanna +1;
-end
+
 
 if (doPlot)
     disp(['The one dimensional mse with a dataset of #', num2str(dimension),' samples is:',num2str(J_mse)]);

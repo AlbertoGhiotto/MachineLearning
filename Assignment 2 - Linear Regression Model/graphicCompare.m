@@ -7,7 +7,7 @@ no_subset = 9;
 dim_subset = floor(dimension / no_subset);  % Floor the dimension in order to avoid out of range indexing
 
 figure;
-sgtitle(['Comparation of ', int2str(no_subset ) ,' subset of the dataset']);
+sgtitle(['Comparison of ', int2str(no_subset ) ,' subset of the dataset']);
 for i = 1:no_subset
 
     dataSet = randomDataset((dim_subset*i+1-dim_subset) : dim_subset*i,:);

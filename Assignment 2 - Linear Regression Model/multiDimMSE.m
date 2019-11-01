@@ -13,8 +13,10 @@ J_mse = 0 ;
 % J_mse = J_mse / dimension;
 
 
+% the computation of the MSE can be either done with the above commented
+% formula or by directly using the immse function
 t = dataSet(:, 1);
-J_mse = immse(t, y);
+J_mse = immse(t, y); 
 
 
 % J_mse =  * norm( t - y )^2 /dimension;
