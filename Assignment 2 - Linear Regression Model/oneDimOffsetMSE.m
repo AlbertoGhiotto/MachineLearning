@@ -1,8 +1,13 @@
-function J_mse = oneDimOffsetMSE(dataSet, doPlot)
+function J_mse = oneDimOffsetMSE(dataSet, w1, w0, doPlot)
+% Given the parameter of the model, the function computes the MSE on the
+% given dataset with the given model.
 
 [dimension,~] = size(dataSet(:,1));
 
-y = linearRegressionWithOffset(dataSet, 0);
+% y = linearRegressionWithOffset(dataSet, 0);
+% y = w1 * x + w0
+y = w1 * dataSet(:,4) + w0;
+
 J_mse = 0 ;
 
 for i = 1: dimension

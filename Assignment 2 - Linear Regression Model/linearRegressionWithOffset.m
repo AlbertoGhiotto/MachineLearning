@@ -1,6 +1,5 @@
-function y = linearRegressionWithOffset(dataSet, doPlot)
-
-% One-dimensional problem with intercept
+function [w1, w0] = linearRegressionWithOffset(dataSet, doPlot)
+% One-dimensional problem with intercept. Compute and returns the model
 
 num = 0;
 den = 0;

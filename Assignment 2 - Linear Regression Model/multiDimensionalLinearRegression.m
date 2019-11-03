@@ -1,6 +1,7 @@
-function prediction = multiDimensionalLinearRegression(dataSet, doPlot)
+function [w, w0] = multiDimensionalLinearRegression(dataSet, doPlot)
 % Multidimensional problem with 3 observation vector (column 2,3,4)
 % and 1 target vector (mpg in the case of motor trend data, column 1)
+% Compute and returns the model
 
 % [dimension,~] = size(dataSet(:,1));
 
@@ -12,7 +13,7 @@ t = dataSet(:,1);
 
 % Compute slope
 w = pinv(X' * X) * X' * t;
-
+w0 = 0; % generic model for code reusability 
 
 % Plot the table representing the estimate of the target
 prediction = X*w ;
