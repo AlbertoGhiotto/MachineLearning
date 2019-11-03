@@ -1,4 +1,6 @@
 %% Machine Learning Assignment 2
+% Alberto Grillo
+% Alberto Ghiotto
 
 clear; close all;
 

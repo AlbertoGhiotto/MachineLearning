@@ -10,9 +10,9 @@ ninety = floor(dimension * perc_2);
 % Compute MSW
 for i = 1:iteration
     randomDataset = dataset(randperm(dimension), :);
-    mse_ten = mse_ten + relativeMSE(randomDataset(1:ten,:),0);
-    mse_ninety = mse_ninety + relativeMSE(randomDataset(1:ninety,:),0);
-    mse_tot = mse_tot + relativeMSE(randomDataset(1:end,:),0);
+    mse_ten = mse_ten + relativeMSE(randomDataset(1:ten,:),0);              % Ten percent of dataset
+    mse_ninety = mse_ninety + relativeMSE(randomDataset(ten+1:end,:),0);    % Remaining 90% of dataset
+    mse_tot = mse_tot + relativeMSE(randomDataset(1:end,:),0);              % Whole dataset    
 end
 
 mse_ten = mse_ten / iteration;
