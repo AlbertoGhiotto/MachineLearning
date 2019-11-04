@@ -39,28 +39,25 @@ multiDimensionalLinearRegression(carDataset,1);
 
 %% Task 3: Test regression model
 iteration = 100000;
-perc_1 = 0.4; perc_2 = 0.6; 
+perc_1 = 0.125; perc_2 = 0.9; 
 % Compute MSE for one-dimensional problem without intercept on the Turkish stock exchange data
 [mse_ten, mse_ninety] = computeMSE(iteration, stDataset, @oneDimMSE,@linearRegression, perc_1, perc_2);
 disp('MSE for one-dimensional problem without intercept on the Turkish stock exchange data with a train set of 10% of the samples');
 disp(['The one dimensional MSE computed on the train set, averaged over #',num2str(iteration ),' iterations  is:',num2str(mse_ten)]);
 disp(['The one dimensional MSE computed on the test set made up of the remaining data, averaged over #',num2str(iteration ),' iterations is:',num2str(mse_ninety)]);
-% disp(['The one dimensional mse, averaged over #',num2str(iteration ),' iterations with a randomized dataset of 100% of the samples is:',num2str(mse_tot)]);
 
 % Compute MSE for one-dimensional problem with intercept on the Motor Trends car data, using columns mpg and weight
-%here use 0.125 since with exactly 10% of data -> 3 observation, we can incur in singularity
+% here use 0.125 since with exactly 10% of data -> 3 observation, we can incur in singularity
 [mse_ten, mse_ninety] = computeMSE(iteration, carDataset, @oneDimOffsetMSE,@linearRegressionWithOffset, perc_1, perc_2);
 disp('MSE for one-dimensional problem with intercept on the Motor Trends car data with a train set of 10% of the samples');
 disp(['The one dimensional MSE computed on the train set, averaged over #',num2str(iteration ),' iterations  is:',num2str(mse_ten)]);
 disp(['The one dimensional MSE computed on the test set made up of the remaining data, averaged over #',num2str(iteration ),' iterations is:',num2str(mse_ninety)]);
-% disp(['The one dimensional mse, averaged over #',num2str(iteration ),' iterations with a randomized dataset of 100% of the samples is:',num2str(mse_tot)]);
 
 
 % Compute MSE for Multi-dimensional problem on the complete MTcars data
-%here use 0.125 since with exactly 10% of data -> 3 observation, we can incur in singularity
+% here use 0.125 since with exactly 10% of data -> 3 observation, we can incur in singularity
 [mse_ten, mse_ninety] = computeMSE(iteration, carDataset, @multiDimMSE,@multiDimensionalLinearRegression, perc_1, perc_2);
 disp('MSE for Multi-dimensional problem on the complete MTcars data with a train set of 10% of the samples');
 disp(['The multi dimensional MSE computed on the train set, averaged over #',num2str(iteration ),' iterations is:',num2str(mse_ten)]);
 disp(['The multi dimensional MSE computed on the test set made up of the remaining data, averaged over #',num2str(iteration ),' iterations is:',num2str(mse_ninety)]);
-% disp(['The multi dimensional mse, averaged over #',num2str(iteration ),' iterations with a randomized dataset of 100% of the samples is:',num2str(mse_tot)]);
 
