@@ -22,15 +22,28 @@ testSet = testSet(1:end/n,1:end);
 trainSet = trainSet(1:end/n,1:end);
 testLabels = testLabels(1:end/n,1:end);
 
-k = 50;
-[prediction ,errorRate] = kNNClassifier(trainSet, testSet, k, testLabels);
+% k = 50;
+% [prediction ,errorRate] = kNNClassifier(trainSet, testSet, k, testLabels);
+% 
+% [observations,~] = size(testLabels);
+% 
+% if (~isnan(errorRate)) % Error rate has been computed
+%    % display error rate
+%    disp(['The error rate computed over #',num2str(observations),' observation, with K = ',num2str(k),' is: ',num2str(errorRate),'%']);
+% end
+h = 5 ;
+ errors= zeros(h,1);
 
-[observations,~] = size(testLabels);
-
-if (~isnan(errorRate)) % Error rate has been computed
-   % display error rate
-   disp(['The error rate computed over #',num2str(observations),' observation, with K = ',k,' is: ',num2str(errorRate),'%']);
+for kappa = 1:h
+    [prediction ,errorRate] = kNNClassifier(trainSet, testSet, kappa, testLabels);
+    errors(kappa) = errorRate ;
+    [observations,~] = size(testLabels);
+    
+    if (~isnan(errorRate)) % Error rate has been computed
+        % display error rate
+        disp(['The error rate computed over #',num2str(observations),' observation, with K = ',num2str(kappa),' is: ',num2str(errorRate),'%']);
+    end
+    
 end
-
 
 
