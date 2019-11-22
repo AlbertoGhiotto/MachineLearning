@@ -22,7 +22,10 @@ testSet = testSet(1:end/n,1:end);
 trainSet = trainSet(1:end/n,1:end);
 testLabels = testLabels(1:end/n,1:end);
 
-% k = 50;
+
+%% Task 2 and 3: Classify the data and get results
+
+% k = 5;
 % [prediction ,errorRate] = kNNClassifier(trainSet, testSet, k, testLabels);
 % 
 % [observations,~] = size(testLabels);
@@ -31,7 +34,8 @@ testLabels = testLabels(1:end/n,1:end);
 %    % display error rate
 %    disp(['The error rate computed over #',num2str(observations),' observation, with K = ',num2str(k),' is: ',num2str(errorRate),'%']);
 % end
-h = 5 ;
+
+h = 4 ;
  errors= zeros(h,1);
 
 for kappa = 1:h
