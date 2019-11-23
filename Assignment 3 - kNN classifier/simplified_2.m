@@ -1,6 +1,6 @@
 clear;
 
-%% OBTAIN A DATA SET
+%% Get The Data
 % Loading training and data sets
 [training_set, training_labels] = loadMNIST(0);
 [test_set, test_labels] = loadMNIST(1);
@@ -10,10 +10,10 @@ training = [training_set training_labels];
 [n, d] = size(training);
 [m, c] = size(test_set);
 
-%% kNN CLASSIFIER
-k = [1:50];
+%% Classify the data and get results
+k = [1:201];
 
-% distance = pdist2(test_set, training(:, 1:(end-1)), 'euclidean');
+distance = pdist2(test_set, training(:, 1:(end-1)), 'euclidean');
 
 t = zeros(n, 10);
 for i=1:10

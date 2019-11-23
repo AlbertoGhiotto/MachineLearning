@@ -23,7 +23,7 @@ end
 %% Classify the test accordingly to the kNN rule
 labels = zeros(k, testSetRows);
 
-[~, labelIndex] = pdist2(trainSet(:,1:testSetCols), testSet, 'euclidean', 'Smallest', k);
+% [~, labelIndex] = pdist2(trainSet(:,1:testSetCols), testSet, 'euclidean', 'Smallest', k);
 
 % Assign relative label
 for column = 1:testSetRows
@@ -31,10 +31,12 @@ for column = 1:testSetRows
         labels(label,column) = trainSet(labelIndex(label,column),end);
     end
 end
-
+prediction = zeros(1,testSetRows);
 % Compute prediction with mode
-prediction = mode(labels)';
-
+for column = 1:testSetRows
+     prediction(column) = mode(labels(:,column));
+     % prediction = mode(labels)';
+end
 errorRate = 0 ;
 if ( nargin == 4)
     % Compute error rate
@@ -43,8 +45,8 @@ if ( nargin == 4)
 %             errorRate = errorRate +1;
 %         end
 %     end
-    errorRate = (sum(prediction ~= groundTruth)) / testSetRows;
-    errorRate = errorRate / 100 ;
+    errorRate = (sum(prediction' ~= groundTruth)) / testSetRows;
+    errorRate = errorRate * 100 ;
 end
 
 
