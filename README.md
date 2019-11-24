@@ -4,7 +4,6 @@ Repository for Machine Learning Projects
 
 
 ## Authors
-* Davide Lanza       - davidel96@hotmail.it
 * Alberto Ghiotto    - alberto.ghiotto@hotmail.it
 * Alberto Grillo     - albogrillo@gmail.com
 
