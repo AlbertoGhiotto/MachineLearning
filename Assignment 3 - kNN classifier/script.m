@@ -52,7 +52,7 @@ end
 % end
 %
 
-%% Print accuracy trend for test 1
+%% Print accuracy trend for test 1 - it needs the files made from test_1.m
 digits = [ 1 2 3 4 5 6 7 8 9 0];
 k = 1:2:201;
 for y = 1:10
@@ -68,7 +68,7 @@ for y = 1:10
     saveas(gcf,'MultiDigit_'+string(y)+'.jpeg');
 end
 
-%% Print accuracy trend for test 2
+%% Print accuracy trend for test 2 - it needs the files made from test_2.m
 figure;
 load('result_several_k1.mat');
 bar(k,(1-result(1:2:end,2))*100);
