@@ -1,3 +1,7 @@
+% This is a script made specifically to get the requested result of the first test of task 3.
+% It simply does what the kNNClassifier function does without recomputing
+% the distance each time in order to optimize the computation time.
+
 clear;
 
 %% Get The Data

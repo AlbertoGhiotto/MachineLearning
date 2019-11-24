@@ -2,7 +2,7 @@
 % It simply does what the kNNClassifier function does without recomputing
 % the distance each time in order to optimize the computation time.
 
-% clear;
+clear;
 
 %% Get The Data
 % Loading training and data sets
