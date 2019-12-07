@@ -7,8 +7,8 @@
 %   cancerInputs - input data.
 %   cancerTargets - target data.
 
-x = cancerInputs;
-t = cancerTargets;
+x = thyroidInputs;
+t = thyroidTargets;
 
 % Choose a Training Function
 % For a list of all training functions type: help nntrain
