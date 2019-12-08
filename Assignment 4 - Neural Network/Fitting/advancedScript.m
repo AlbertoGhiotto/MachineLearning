@@ -7,10 +7,29 @@
 %   chemicalInputs - input data.
 %   chemicalTargets - target data.
 
-x = chemicalInputs;
-t = chemicalTargets;
+% x = chemicalInputs;
+% t = chemicalTargets;
+clear;
+%% Wine dataset
 
-% Choose a Training Function
+% dataset = load("wine.data");
+% x = dataset(:,2:end);
+% t = normalizeLabel(dataset(:,1));
+% 
+% x = x';
+% t = t';
+
+%% Iris Dataset
+
+dataset = load("iris.data");
+x = dataset(:,1:end-1);
+t = normalizeLabel(dataset(:,end));
+
+x = x';
+t = t';
+
+
+%% Choose a Training Function
 % For a list of all training functions type: help nntrain
 % 'trainlm' is usually fastest.
 % 'trainbr' takes longer but may be better for challenging problems.
@@ -18,7 +37,7 @@ t = chemicalTargets;
 trainFcn = 'trainlm';  % Levenberg-Marquardt backpropagation.
 
 % Create a Fitting Network
-hiddenLayerSize = 10;
+hiddenLayerSize = 10;   % Number of hidden neurons
 net = fitnet(hiddenLayerSize,trainFcn);
 
 % Choose Input and Output Pre/Post-Processing Functions

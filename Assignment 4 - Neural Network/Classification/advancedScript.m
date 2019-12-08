@@ -7,8 +7,27 @@
 %   cancerInputs - input data.
 %   cancerTargets - target data.
 
-x = thyroidInputs;
-t = thyroidTargets;
+% x = thyroidInputs;
+% t = thyroidTargets;
+
+clear;
+%% Wine dataset
+
+% dataset = load("wine.data");
+% x = dataset(:,2:end);
+% t = normalizeLabel(dataset(:,1));
+% 
+% x = x';
+% t = t';
+
+%% Iris Dataset
+
+dataset = load("iris.data");
+x = dataset(:,1:end-1);
+t = normalizeLabel(dataset(:,end));
+
+x = x';
+t = t';
 
 % Choose a Training Function
 % For a list of all training functions type: help nntrain
@@ -18,7 +37,7 @@ t = thyroidTargets;
 trainFcn = 'trainscg';  % Scaled conjugate gradient backpropagation.
 
 % Create a Pattern Recognition Network
-hiddenLayerSize = 10;
+hiddenLayerSize = 10;   % Number of hidden neurons
 net = patternnet(hiddenLayerSize, trainFcn);
 
 % Choose Input and Output Pre/Post-Processing Functions
