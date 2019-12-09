@@ -10,6 +10,6 @@ for i = 1:size(target,1)
     end
 end
 
-normTarget = normTarget';
+% normTarget = normTarget';
 
 end

@@ -13,20 +13,23 @@ clear;
 %% Wine dataset
 
 % dataset = load("wine.data");
-% x = dataset(:,2:end);
-% t = normalizeLabel(dataset(:,1));
 % 
+% x = dataset(:,2:end);
+% 
+% % t = normalizeLabel(dataset(:,1));
+% t = dataset(:,1);
+% % 
 % x = x';
 % t = t';
 
 %% Iris Dataset
 
-dataset = load("iris.data");
-x = dataset(:,1:end-1);
-t = normalizeLabel(dataset(:,end));
-
-x = x';
-t = t';
+% dataset = load("iris.data");
+% x = dataset(:,1:end-1);
+% % t = normalizeLabel(dataset(:,end));
+% t = dataset(:,end);
+% x = x';
+% t = t';
 
 
 %% Choose a Training Function
@@ -83,11 +86,14 @@ view(net)
 
 % Plots
 % Uncomment these lines to enable various plots.
-%figure, plotperform(tr)
+figure, plotperform(tr)
+saveas(gcf,'Performance_30neurons.jpeg');
 %figure, plottrainstate(tr)
-%figure, ploterrhist(e)
-%figure, plotregression(t,y)
+figure, ploterrhist(e)
+saveas(gcf,'Hist_30neurons.jpeg');
+figure, plotregression(t,y)
 %figure, plotfit(net,x,t)
+saveas(gcf,'Regression_30neurons.jpeg');
 
 % Deployment
 % Change the (false) values to (true) to enable the following code blocks.
