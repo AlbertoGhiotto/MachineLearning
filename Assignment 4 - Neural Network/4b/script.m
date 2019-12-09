@@ -6,7 +6,7 @@ clear; close all; clc;
 
 %% Task 1: Get The Data
 % Take only two classes
-classes = [1 5];
+classes = [8 10];
 % Load train set
 [trainSet, labels]  = loadMNIST(0, classes);
 % trainSet = [data, labels];
